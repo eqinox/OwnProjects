@@ -32,5 +32,29 @@
         {
             return new MatrixCoords(a.Row - b.Row, a.Col - b.Col);
         }
+
+        public static bool operator ==(MatrixCoords a, MatrixCoords b)
+        {
+            if (a.Row == b.Row && a.Col == b.Col)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool operator !=(MatrixCoords a, MatrixCoords b)
+        {
+            if (a.Row == b.Row && a.Col == b.Col)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
     }
 }

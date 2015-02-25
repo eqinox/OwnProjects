@@ -42,14 +42,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleThings\ConsoleRenderer.cs" />
-    <Compile Include="ConsoleThings\ConsoleSettings.cs" />
+    <Compile Include="Constants\ConsoleSettings.cs" />
     <Compile Include="ConsoleThings\MatrixCoords.cs" />
+    <Compile Include="Constants\Constant.cs" />
+    <Compile Include="Engines\CollisionDispatcher.cs" />
     <Compile Include="Engines\GameEngine.cs" />
     <Compile Include="Engines\KeyboardInterface.cs" />
     <Compile Include="Enumerations\Direction.cs" />
+    <Compile Include="GameObjects\Scores\BonusScore.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
-    <Compile Include="GameObjects\MovableObject.cs" />
-    <Compile Include="GameObjects\Character.cs" />
+    <Compile Include="Engines\Map.cs" />
+    <Compile Include="GameObjects\MovableObjects\MovableObject.cs" />
+    <Compile Include="GameObjects\MovableObjects\Character.cs" />
+    <Compile Include="GameObjects\Scores\NormalScore.cs" />
+    <Compile Include="GameObjects\MovableObjects\Opponent.cs" />
+    <Compile Include="GameObjects\Scores\Score.cs" />
+    <Compile Include="GameObjects\Wall.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Interfaces\IRenderer.cs" />
     <Compile Include="Interfaces\IUserInterface.cs" />
@@ -58,6 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Maps\map1.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
