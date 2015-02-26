@@ -56,5 +56,10 @@
                 return true;
             }
         }
+
+        public override string ToString()
+        {
+            return string.Format("Row[{0}], Col[{1}]", this.Row, this.Col);
+        }
     }
 }

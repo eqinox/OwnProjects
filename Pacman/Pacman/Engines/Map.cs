@@ -14,14 +14,12 @@
         private List<GameObject> allObjects;
         private List<Wall> allWalls;
         private List<Score> allScore;
-        private List<BonusScore> allBonus;
 
         public Map(string path)
         {
             this.allObjects = new List<GameObject>();
             this.allScore = new List<Score>();
             this.allWalls = new List<Wall>();
-            this.allBonus = new List<BonusScore>();
             ParseMap(path);
         }
 
@@ -71,12 +69,17 @@
                     case Constant.ScoreSymbol:
                         Score newScore = new NormalScore(Constant.ScoreSymbol, new MatrixCoords(row, col));
                         this.allObjects.Add(newScore);
-                        this.allScore.Add(newScore as Score);
+                        this.allScore.Add(newScore as NormalScore);
                         break;
                     case Constant.BonusSymbol:
-                        BonusScore newBonus = new BonusScore(Constant.BonusSymbol, new MatrixCoords(row, col));
+                        Score newBonus = new BonusScore(Constant.BonusSymbol, new MatrixCoords(row, col));
                         this.allObjects.Add(newBonus);
-                        this.allBonus.Add(newBonus as BonusScore);
+                        this.allScore.Add(newBonus as BonusScore);
+                        break;
+                    case Constant.EmptySymbol:
+                        Wall newWall2 = new Wall(Constant.EmptySymbol, new MatrixCoords(row, col));
+                        this.allObjects.Add(newWall2);
+                        this.allWalls.Add(newWall2);
                         break;
                     default:
                         break;
@@ -94,14 +97,9 @@
             return this.allWalls;
         }
 
-        public List<Score> GiveMeAllScore()
+        public List<Score> GiveMeAllScores()
         {
             return this.allScore;
-        }
-
-        public List<BonusScore> GiveMeAllBonuses()
-        {
-            return this.allBonus;
         }
     }
 }

@@ -42,7 +42,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleThings\ConsoleRenderer.cs" />
-    <Compile Include="Constants\ConsoleSettings.cs" />
     <Compile Include="ConsoleThings\MatrixCoords.cs" />
     <Compile Include="Constants\Constant.cs" />
     <Compile Include="Engines\CollisionDispatcher.cs" />

@@ -42,7 +42,7 @@
             set { symbol = value; }
         }
 
-        public bool CanCollideWith(GameObject otherObj)
+        public virtual bool CanCollideWith(GameObject otherObj)
         {
             if (this.Position == otherObj.Position)
             {
@@ -55,9 +55,8 @@
             return false;
         }
 
-        public void Update()
+        public virtual void Update()
         {
-
         }
     }
 }

@@ -36,6 +36,7 @@
                 this.AttackMode = true;
             }
             this.scores += score.Value;
+            score.IsAlive = false;
         }
     }
 }
