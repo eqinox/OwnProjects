@@ -26,9 +26,9 @@
         /// <param name="characters"></param>
         /// <param name="allWalls"></param>
         /// <returns>The method returns all GameObjects which crashed into a wall and should call method MoveBack();</returns>
-        public static List<GameObject> SeeForCollisionWithWalls(List<GameObject> characters, List<Wall> allWalls)
+        public static List<MovableObject> SeeForCollisionWithWalls(List<MovableObject> characters, List<Wall> allWalls)
         {
-            List<GameObject> allCharactersToMoveBack = new List<GameObject>();
+            List<MovableObject> allCharactersToMoveBack = new List<MovableObject>();
 
             foreach (var character in characters)
             {

@@ -27,8 +27,8 @@
 
             GameEngine engine = new GameEngine(keyboard, renderer, map);
 
-            Character pacman = new Character('@', new MatrixCoords(1, 2));
-            Opponent opponent1 = new Opponent('$', new MatrixCoords(5, 5));
+            Character pacman = new Character('@', new MatrixCoords(21, 29));
+            Opponent opponent1 = new Opponent('$', new MatrixCoords(16, 29));
 
             keyboard.OnUpPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Up; };
             keyboard.OnDownPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Down; };

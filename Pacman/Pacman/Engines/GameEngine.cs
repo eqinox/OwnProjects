@@ -56,6 +56,11 @@
 
                 this.userInterface.ProcessInput();
 
+                foreach (var opponent in this.allOpponents)
+                {
+                    opponent.FollowCharacter(this.pacman);
+                }
+
                 foreach (var obj in this.allMovableObjects)
                 {
                     obj.SetIfCanMoveToWaitingDirection(this.map.GiveMeMap());
@@ -90,12 +95,12 @@
                 pacman.IsAlive = false;
             }
 
-            List<GameObject> charactersToMoveBack = CollisionDispatcher.SeeForCollisionWithWalls(this.allObjects, allWalls);
+            List<MovableObject> charactersToMoveBack = CollisionDispatcher.SeeForCollisionWithWalls(this.allMovableObjects, allWalls);
             if (charactersToMoveBack != null)
             {
                 foreach (var character in charactersToMoveBack)
                 {
-                    (character as MovableObject).MoveBack();
+                    character.MoveBack();
                 }
             }
 
