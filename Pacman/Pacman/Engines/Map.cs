@@ -14,12 +14,14 @@
         private List<GameObject> allObjects;
         private List<Wall> allWalls;
         private List<Score> allScore;
+        private string path;
 
         public Map(string path)
         {
             this.allObjects = new List<GameObject>();
             this.allScore = new List<Score>();
             this.allWalls = new List<Wall>();
+            this.path = path;
             ParseMap(path);
         }
 
@@ -100,6 +102,11 @@
         public List<Score> GiveMeAllScores()
         {
             return this.allScore;
+        }
+
+        public object GiveMeMapAgain()
+        {
+            return new Map(this.path);
         }
     }
 }

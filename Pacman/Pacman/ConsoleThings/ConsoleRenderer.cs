@@ -1,6 +1,7 @@
 ﻿namespace Pacman.ConsoleThings
 {
     using Pacman.GameObjects;
+    using Pacman.GameObjects.MovableObjects;
     using Pacman.Interfaces;
     using System;
     using System.Collections.Generic;
@@ -42,6 +43,18 @@
         }
 
         public void EnqueueForRendering(ICollection<GameObject> objects)
+        {
+            foreach (var obj in objects)
+            {
+                char symbol = obj.Symbol;
+                int row = obj.Position.Row;
+                int col = obj.Position.Col;
+
+                this.world[row, col] = symbol;
+            }
+        }
+
+        public void EnqueueForRendering(ICollection<Opponent> objects)
         {
             foreach (var obj in objects)
             {

@@ -8,7 +8,6 @@
         public NormalScore(char symbol, MatrixCoords position)
             :base(symbol, position)
         {
-            base.team = Constant.ScoreTeam;
             base.value = Constant.NormalScoreValue;
         }
     }

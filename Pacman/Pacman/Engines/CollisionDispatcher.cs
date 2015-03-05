@@ -7,11 +7,30 @@
 
     class CollisionDispatcher
     {
-        public static bool SeeForCollisionsWithOtherOpponent(Character pacman, List<Opponent> allOpponents)
+        public static MovableObject SeeForCollisionWithOpponent(Character pacman, List<MovableObject> allOppponents)
         {
-            foreach (var opponent in allOpponents)
+            foreach (var opponent in allOppponents)
             {
                 if (pacman.CanCollideWith(opponent))
+                {
+                    return opponent;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// The method checks if given GameObject crashed into a wall
+        /// </summary>
+        /// <param name="movableObject"></param>
+        /// <param name="allWalls"></param>
+        /// <returns>The method returns all GameObjects which crashed into a wall and should call method MoveBack();</returns>
+        public static bool SeeForCollisionWithWalls(MovableObject movableObject, List<Wall> allWalls)
+        {
+            foreach (var wall in allWalls)
+            {
+                if (movableObject.CanCollideWith(wall))
                 {
                     return true;
                 }
@@ -20,29 +39,17 @@
             return false;
         }
 
-        /// <summary>
-        /// The method checks if given GameObject crashed into a wall
-        /// </summary>
-        /// <param name="characters"></param>
-        /// <param name="allWalls"></param>
-        /// <returns>The method returns all GameObjects which crashed into a wall and should call method MoveBack();</returns>
-        public static List<MovableObject> SeeForCollisionWithWalls(List<MovableObject> characters, List<Wall> allWalls)
+        public static GameObject SeeForCollisionWithObjects(Character pacman, List<GameObject> allObjects)
         {
-            List<MovableObject> allCharactersToMoveBack = new List<MovableObject>();
-
-            foreach (var character in characters)
+            foreach (var obj in allObjects)
             {
-                foreach (var wall in allWalls)
+                if (pacman.CanCollideWith(obj))
                 {
-                    if (character.CanCollideWith(wall))
-                    {
-                        allCharactersToMoveBack.Add(character);
-                        break;
-                    }
+                    return obj;
                 }
             }
 
-            return allCharactersToMoveBack;
+            return null;
         }
 
         public static Score SeeForCollisionWithScores(Character pacman, List<Score> allScores)

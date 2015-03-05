@@ -124,5 +124,10 @@
                 }
             }
         }
+
+        public virtual void Reset()
+        {
+            this.IsAlive = true;
+        }
     }
 }

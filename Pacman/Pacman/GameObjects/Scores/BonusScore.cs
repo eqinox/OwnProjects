@@ -8,7 +8,6 @@
         public BonusScore(char symbol, MatrixCoords position)
             :base(symbol, position)
         {
-            base.team = Constant.BonusTeam;
             base.value = Constant.BonusScoreValue;
         }
     }

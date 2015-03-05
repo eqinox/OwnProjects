@@ -48,6 +48,7 @@
     <Compile Include="Engines\GameEngine.cs" />
     <Compile Include="Engines\KeyboardInterface.cs" />
     <Compile Include="Enumerations\Direction.cs" />
+    <Compile Include="GameObjects\Scores\BonusLifeScore.cs" />
     <Compile Include="GameObjects\Scores\BonusScore.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="Engines\Map.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="GameObjects\Scores\NormalScore.cs" />
     <Compile Include="GameObjects\MovableObjects\Opponent.cs" />
     <Compile Include="GameObjects\Scores\Score.cs" />
+    <Compile Include="GameObjects\Scores\SuperBonusScore.cs" />
     <Compile Include="GameObjects\Wall.cs" />
     <Compile Include="Interfaces\IMovable.cs" />
     <Compile Include="Interfaces\IRenderer.cs" />

@@ -1,0 +1,1 @@
+if the game doesn't run, set the console to Lucida Console and size 18
