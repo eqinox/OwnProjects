@@ -1,45 +1,34 @@
 ﻿namespace Pacman.GameObjects
 {
     using Pacman.ConsoleThings;
+    using Pacman.Enumerations;
 
     abstract class GameObject
     {
-        protected int team;
-        private MatrixCoords position;
-        private char symbol;
-        private bool isAlive;
+        protected Team team;
+        protected char symbol;
+        public MatrixCoords Position { get; set; }
+        public bool IsAlive { get; set; }
 
-        public GameObject(char symbol, MatrixCoords position)
+        protected GameObject(char symbol, MatrixCoords position)
         {
             this.Symbol = symbol;
             this.Position = position;
             this.IsAlive = true;
         }
 
-        public MatrixCoords Position
+        public virtual char Symbol
         {
-            get { return position; }
-            set { position = value; }
+            get { return this.symbol; }
+            set { this.symbol = value; }
         }
 
         /// <summary>
         /// Helps to recognize opponents, walls, scores and etc..
         /// </summary>
-        public int Team
+        public Team Team
         {
             get { return team; }
-        }
-
-        public bool IsAlive
-        {
-            get { return isAlive; }
-            set { isAlive = value; }
-        }
-
-        public char Symbol
-        {
-            get { return symbol; }
-            set { symbol = value; }
         }
 
         public virtual bool CanCollideWith(GameObject otherObj)

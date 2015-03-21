@@ -47,6 +47,7 @@
             foreach (var obj in objects)
             {
                 char symbol = obj.Symbol;
+
                 int row = obj.Position.Row;
                 int col = obj.Position.Col;
 
@@ -59,6 +60,7 @@
             foreach (var obj in objects)
             {
                 char symbol = obj.Symbol;
+
                 int row = obj.Position.Row;
                 int col = obj.Position.Col;
 

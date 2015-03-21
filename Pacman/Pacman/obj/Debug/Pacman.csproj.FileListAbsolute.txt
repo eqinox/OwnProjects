@@ -4,3 +4,5 @@ C:\Users\vasko2\Documents\Visual Studio 2013\Projects\OwnProjects\trunk\Pacman\P
 C:\Users\vasko2\Documents\Visual Studio 2013\Projects\OwnProjects\trunk\Pacman\Pacman\bin\Debug\Pacman.pdb
 C:\Users\vasko2\Documents\Visual Studio 2013\Projects\OwnProjects\trunk\Pacman\Pacman\obj\Debug\Pacman.exe
 C:\Users\vasko2\Documents\Visual Studio 2013\Projects\OwnProjects\trunk\Pacman\Pacman\obj\Debug\Pacman.pdb
+C:\Users\vasko2\Documents\Visual Studio 2013\Projects\OwnProjects\trunk\Pacman\Pacman\bin\Debug\MathNet.Numerics.dll
+C:\Users\vasko2\Documents\Visual Studio 2013\Projects\OwnProjects\trunk\Pacman\Pacman\bin\Debug\MathNet.Numerics.xml

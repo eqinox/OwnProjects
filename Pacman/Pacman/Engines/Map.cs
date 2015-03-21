@@ -14,6 +14,7 @@
         private List<GameObject> allObjects;
         private List<Wall> allWalls;
         private List<Score> allScore;
+        private List<Pacman.GameObjects.Path> allPaths;
         private string path;
 
         public Map(string path)
@@ -21,6 +22,7 @@
             this.allObjects = new List<GameObject>();
             this.allScore = new List<Score>();
             this.allWalls = new List<Wall>();
+            this.allPaths = new List<Pacman.GameObjects.Path>();
             this.path = path;
             ParseMap(path);
         }
@@ -70,11 +72,15 @@
                         break;
                     case Constant.ScoreSymbol:
                         Score newScore = new NormalScore(Constant.ScoreSymbol, new MatrixCoords(row, col));
+                        Pacman.GameObjects.Path newPath = new Pacman.GameObjects.Path(Constant.PathSymbol, new MatrixCoords(row, col));
+                        this.allPaths.Add(newPath);
                         this.allObjects.Add(newScore);
                         this.allScore.Add(newScore as NormalScore);
                         break;
                     case Constant.BonusSymbol:
                         Score newBonus = new BonusScore(Constant.BonusSymbol, new MatrixCoords(row, col));
+                        Pacman.GameObjects.Path newPath2 = new Pacman.GameObjects.Path(Constant.PathSymbol, new MatrixCoords(row, col));
+                        this.allPaths.Add(newPath2);
                         this.allObjects.Add(newBonus);
                         this.allScore.Add(newBonus as BonusScore);
                         break;
@@ -103,6 +109,11 @@
         {
             return this.allScore;
         }
+
+        public List<Pacman.GameObjects.Path> GiveMeAllPaths()
+        {
+            return this.allPaths;
+        } 
 
         public object GiveMeMapAgain()
         {

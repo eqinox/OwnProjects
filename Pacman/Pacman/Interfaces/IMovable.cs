@@ -4,6 +4,6 @@
 
     interface IMovable
     {
-        void Move(Direction direction, int step);
+        void Move(Direction direction);
     }
 }

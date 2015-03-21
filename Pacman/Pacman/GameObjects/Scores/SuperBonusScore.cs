@@ -1,13 +1,8 @@
-﻿using Pacman.ConsoleThings;
-using Pacman.Constants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Pacman.GameObjects.Scores
+﻿namespace Pacman.GameObjects.Scores
 {
+    using Pacman.ConsoleThings;
+    using Pacman.Constants;
+
     class SuperBonusScore : Score
     {
         public SuperBonusScore(char symbol, MatrixCoords position)

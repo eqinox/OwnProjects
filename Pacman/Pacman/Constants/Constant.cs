@@ -1,14 +1,7 @@
-﻿using Pacman.ConsoleThings;
-namespace Pacman.Constants
+﻿namespace Pacman.Constants
 {
     static class Constant
     {
-        // Team helps to recognize opponents, walls, scores and etc..
-        public const int CharacterTeam = 1;
-        public const int OpponentTeam = 2;
-        public const int ScoreTeam = 3;
-        public const int WallTeam = 4;
-
         public const string MapPath = "../../Maps/map1.txt";
 
         public const char WallSymbol = '*';
@@ -17,6 +10,7 @@ namespace Pacman.Constants
         public const char BonusLifeSymbol = 'L';
         public const char SuperBonusScoreSymbol = 'B';
         public const char EmptySymbol = ' ';
+        public const char PathSymbol = '\'';
 
         public const int NormalScoreValue = 2;
         public const int BonusScoreValue = 4;

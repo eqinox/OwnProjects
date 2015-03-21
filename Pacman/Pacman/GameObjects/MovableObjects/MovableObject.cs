@@ -1,12 +1,11 @@
 ﻿namespace Pacman.GameObjects.MovableObjects
 {
     using Pacman.ConsoleThings;
-    using Pacman.Constants;
     using Pacman.Enumerations;
-    using Pacman.GameObjects.Scores;
     using Pacman.Interfaces;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
 
     abstract class MovableObject : GameObject, IMovable
     {
@@ -21,7 +20,7 @@
             this.waitingDirection = Direction.Right;
         }
 
-        public virtual void Move(Direction direction, int step = 1)
+        public virtual void Move(Direction direction)
         {
             int newRow = this.Position.Row;
             int newCol = this.Position.Col;
@@ -29,19 +28,24 @@
 
             switch (direction)
             {
-                case Direction.Up: newRow -= step; break;
-                case Direction.Down: newRow += step; break;
-                case Direction.Right: newCol += step; break;
-                case Direction.Left: newCol -= step; break;
+                case Direction.Up: newRow -= 1; break;
+                case Direction.Down: newRow += 1; break;
+                case Direction.Right: newCol += 1; break;
+                case Direction.Left: newCol -= 1; break;
                 default:
                     throw new InvalidOperationException("Invalid direction provided.");
             }
             this.Position = new MatrixCoords(newRow, newCol);
         }
-
+            
         public void MoveBack()
         {
             this.Position = new MatrixCoords(this.oldPosition.Row, this.oldPosition.Col);
+        }
+
+        public void SetWaitingDirection(Direction direction)
+        {
+            this.waitingDirection = direction;
         }
 
         public override void Update()
@@ -49,78 +53,34 @@
             Move(this.currentDirection);
         }
 
-        public void SetIfCanMoveToWaitingDirection(List<GameObject> otherObj)
+        public void SetIfCanMoveToWaitingDirection(List<Path> otherObj)
         {
-            if (this.waitingDirection == Direction.Right)
+            if (this.waitingDirection == Direction.Up)
             {
-                GameObject currObj = otherObj.Find(x =>
-                    (this.Position.Col + 2 == x.Position.Col) &&
-                    (this.Position.Row == x.Position.Row)
-                    );
-                if (currObj != null)
+                if (otherObj.FirstOrDefault(x => x.Position == this.Position.TopPosition) != null)
                 {
-                    if (!(currObj is Wall))
-                    {
-                        this.currentDirection = this.waitingDirection;
-                    }
-                }
-                else
-                {
-                    this.currentDirection = this.waitingDirection;
-                }
-            }
-            else if (this.waitingDirection == Direction.Left)
-            {
-                GameObject currObj = otherObj.Find(x =>
-                    (this.Position.Col - 2 == x.Position.Col) &&
-                    (this.Position.Row == x.Position.Row)
-                    );
-                if (currObj != null)
-                {
-                    if (!(currObj is Wall))
-                    {
-                        this.currentDirection = this.waitingDirection;
-                    }
-                }
-                else
-                {
-                    this.currentDirection = this.waitingDirection;
-                }
-            }
-            else if (this.waitingDirection == Direction.Up)
-            {
-                GameObject currObj = otherObj.Find(x =>
-                    (this.Position.Row - 1 == x.Position.Row) &&
-                    (this.Position.Col == x.Position.Col)
-                    );
-                if (currObj != null)
-                {
-                    if (!(currObj is Wall))
-                    {
-                        this.currentDirection = this.waitingDirection;
-                    }
-                }
-                else
-                {
-                    this.currentDirection = this.waitingDirection;
+                    this.currentDirection = Direction.Up;
                 }
             }
             else if (this.waitingDirection == Direction.Down)
             {
-                GameObject currObj = otherObj.Find(x =>
-                    (this.Position.Row + 1 == x.Position.Row) &&
-                    (this.Position.Col == x.Position.Col)
-                    );
-                if (currObj != null)
+                if (otherObj.FirstOrDefault(x => x.Position == this.Position.BottomPosition) != null)
                 {
-                    if (!(currObj is Wall))
-                    {
-                        this.currentDirection = this.waitingDirection;
-                    }
+                    this.currentDirection = Direction.Down;
                 }
-                else
+            }
+            else if (this.waitingDirection == Direction.Left)
+            {
+                if (otherObj.FirstOrDefault(x => x.Position == this.Position.LeftPosition) != null)
                 {
-                    this.currentDirection = this.waitingDirection;
+                    this.currentDirection = Direction.Left;
+                }
+            }
+            else if (this.waitingDirection == Direction.Right)
+            {
+                if (otherObj.FirstOrDefault(x => x.Position == this.Position.RightPosition) != null)
+                {
+                    this.currentDirection = Direction.Right;
                 }
             }
         }

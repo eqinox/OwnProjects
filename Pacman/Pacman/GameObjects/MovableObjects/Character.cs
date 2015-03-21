@@ -2,65 +2,46 @@
 {
     using Pacman.ConsoleThings;
     using Pacman.Constants;
+    using Pacman.Enumerations;
     using Pacman.GameObjects.Scores;
-    using System.Media;
+    using Pacman.sound;
 
     class Character : MovableObject
     {
-        private int scores;
-        private int lives;
-        private int attackModeTimer = 0;
-        private int maxAttackModeTime = 50;
-        private bool attackMode;
+        public const int maxAttackModeTime = 50; // 50
+
+        public int Scores { get; set; }
+        public int Lives { get; set; }
+        public int attackModeTimer { get; private set; }
+        public bool AttackMode { get; set; } // Helps to attack opponents
+
         private bool alreadyTookLife;
-        private SoundPlayer EatPill = new SoundPlayer(Constant.EatPillPath);
-        private SoundPlayer extralife = new SoundPlayer(Constant.ExtraLifePath);
-        private SoundPlayer ghosteat = new SoundPlayer(Constant.GhostEatPath);
 
         public Character(char symbol, MatrixCoords position)
             :base(symbol, position)
         {
-            base.team = Constant.CharacterTeam;
+            base.team = Team.Character;
+            this.waitingDirection = Direction.Up;
+            this.currentDirection = Direction.Up;
             this.AttackMode = false;
             this.Lives = Constant.CharacterDefaultLives;
         }
 
-        /// <summary>
-        /// Helps to attack opponents
-        /// </summary>
-        public bool AttackMode
-        {
-            get { return attackMode; }
-            set { attackMode = value; }
-        }
-
-        public int Scores
-        {
-            get { return this.scores; }
-            set { this.scores = value; }
-        }
-
-        public int Lives
-        {
-            get { return lives; }
-            set { lives = value; }
-        }
-
         public void TakeScore(Score score)
         {
-            EatPill.Play();
+            MusicPlayer.EatPill.Play();
             if (score is BonusScore)
             {
                 this.AttackMode = true;
-                this.attackModeTimer = this.maxAttackModeTime;
+                this.attackModeTimer = maxAttackModeTime;
             }
             else if (score is BonusLifeScore)
             {
                 this.Lives++;
-                extralife.Play();
+                MusicPlayer.extralife.Play();
             }
 
-            this.scores += score.Value;
+            this.Scores += score.Value;
             score.IsAlive = false;
         }
 
@@ -78,7 +59,7 @@
             if (this.Scores > Constant.EnoughScoreForeBonusLife && alreadyTookLife == false)
             {
                 this.Lives++;
-                extralife.Play();
+                MusicPlayer.extralife.Play();
                 alreadyTookLife = true;
             }
 
@@ -100,8 +81,8 @@
 
         public void EatOpponent(Opponent opponent)
         {
-            ghosteat.Play();
-            opponent.IsAlive = false;
+            MusicPlayer.ghosteat.Play();
+            opponent.Reset();
             this.Scores += opponent.Score;
         }
     }

@@ -11,6 +11,38 @@
             this.Col = col;
         }
 
+        public MatrixCoords TopPosition
+        {
+            get
+            {
+                return new MatrixCoords(this.Row - 1, this.Col);
+            }
+        }
+
+        public MatrixCoords BottomPosition
+        {
+            get
+            {
+                return new MatrixCoords(this.Row + 1, this.col);
+            }
+        }
+
+        public MatrixCoords LeftPosition
+        {
+            get
+            {
+                return new MatrixCoords(this.Row, this.Col - 1);
+            }
+        }
+
+        public MatrixCoords RightPosition
+        {
+            get
+            {
+                return  new MatrixCoords(this.Row, this.Col + 1);
+            }
+        }
+
         public int Col
         {
             get { return col; }
@@ -35,6 +67,14 @@
 
         public static bool operator ==(MatrixCoords a, MatrixCoords b)
         {
+            if (object.ReferenceEquals(a, null))
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(b, null))
+            {
+                return false;
+            }
             if (a.Row == b.Row && a.Col == b.Col)
             {
                 return true;
@@ -47,6 +87,14 @@
 
         public static bool operator !=(MatrixCoords a, MatrixCoords b)
         {
+            if (object.ReferenceEquals(a, null))
+            {
+                return false;
+            }
+            if (object.ReferenceEquals(b, null))
+            {
+                return false;
+            }
             if (a.Row == b.Row && a.Col == b.Col)
             {
                 return false;
@@ -55,6 +103,7 @@
             {
                 return true;
             }
+            
         }
 
         public override string ToString()

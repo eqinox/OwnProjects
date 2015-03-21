@@ -3,12 +3,12 @@
     using Pacman.ConsoleThings;
     using Pacman.Enumerations;
 
-    class Wall : GameObject
+    class Path : GameObject
     {
-        public Wall(char symbol, MatrixCoords position)
+        public Path(char symbol, MatrixCoords position)
             :base(symbol, position)
         {
-            base.team = Team.Wall;
+            base.team = Team.Path;
         }
     }
 }

@@ -12,29 +12,27 @@
     using System.Linq;
     using Pacman.Enumerations;
     using System.Media;
+    using Pacman.sound;
 
     class GameEngine
     {
         // If we create list, we should delete all dead (IsAlive == false) objects from it in RemoveAllDeadObjects() method
-        private IUserInterface userInterface;
+        private IUserInput _userInput;
         private IRenderer renderer;
         private List<GameObject> allObjects;
-        private List<Opponent> waitingDeadOpponents;
         private List<MovableObject> allMovableObjects;
         private Character pacman;
         private Map map;
         private Map copyMap;
-        private SoundPlayer killed = new SoundPlayer(Constant.KilledPath);
 
-        public GameEngine(IUserInterface userInterface, IRenderer renderer, Map map)
+        public GameEngine(IUserInput _userInput, IRenderer renderer, Map map)
         {
-            this.userInterface = userInterface;
+            this._userInput = _userInput;
             this.renderer = renderer;
             this.map = map;
             this.copyMap = map.GiveMeMapAgain() as Map;
             this.allObjects = new List<GameObject>();
             this.allMovableObjects = new List<MovableObject>();
-            this.waitingDeadOpponents = new List<Opponent>();
         }
 
         public void AddObject(GameObject obj)
@@ -57,13 +55,13 @@
                 this.renderer.EnqueueForRendering(this.map.GiveMeMap());
                 this.renderer.EnqueueForRendering(this.allObjects);
 
-                this.userInterface.ProcessInput();
+                this._userInput.ProcessInput();
 
                 ProceedAllOpponentsMoves();
 
                 foreach (var obj in this.allMovableObjects)
                 {
-                    obj.SetIfCanMoveToWaitingDirection(this.map.GiveMeMap());
+                    obj.SetIfCanMoveToWaitingDirection(this.map.GiveMeAllPaths());
                     obj.Update();
                     if (CollisionDispatcher.SeeForCollisionWithWalls(obj, this.map.GiveMeAllWalls()))
                     {
@@ -78,7 +76,6 @@
                 CheckForCollisionWithScores(this.pacman, this.allObjects);
 
                 RemoveAllDeadObjects();
-                PutDeadOpponentsToStartPosition();
 
                 AddBonusScores();
 
@@ -112,20 +109,6 @@
                     this.AddObject(newScore);
                 }
             }
-        }
-
-        private void PutDeadOpponentsToStartPosition()
-        {
-            if (this.waitingDeadOpponents.Count > 0)
-            {
-                foreach (var waitingOpponent in this.waitingDeadOpponents)
-                {
-                    this.allMovableObjects.Add(waitingOpponent);
-                    this.allObjects.Add(waitingOpponent);
-                }
-            }
-
-            this.waitingDeadOpponents = new List<Opponent>();
         }
 
         private void ProceedIfWin()
@@ -168,10 +151,10 @@
                     if (this.allObjects.FirstOrDefault(x => x is Character) == null)
                     {
                         Character pacman = new Character('@', new MatrixCoords(Constant.PacmanRowStartPosition, Constant.PacmanColStartPosition));
-                        userInterface.OnUpPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Up; };
-                        userInterface.OnDownPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Down; };
-                        userInterface.OnLeftPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Left; };
-                        userInterface.OnRightPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Right; };
+                        _userInput.OnUpPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Up; };
+                        _userInput.OnDownPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Down; };
+                        _userInput.OnLeftPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Left; };
+                        _userInput.OnRightPressed += (sender, eventArgs) => { pacman.waitingDirection = Direction.Right; };
                         this.AddObject(pacman);
                     }
 
@@ -191,7 +174,7 @@
         {
             if (!this.pacman.IsAlive)
             {
-                killed.Play();
+                MusicPlayer.killed.Play();
                 Console.Clear();
                 string gameOverMsg = "GAME OVER";
                 string scoreMsg = string.Format("Your score: {0}", this.pacman.Scores);
@@ -214,7 +197,6 @@
             {
                 if (pacman.AttackMode)
                 {
-                    opponent.IsAlive = false;
                     pacman.EatOpponent(opponent as Opponent);
                 }
                 else
@@ -222,7 +204,7 @@
                     pacman.Lives--;
 
                     this.renderer.RenderAll();
-                    killed.Play();
+                    MusicPlayer.killed.Play();
                     Thread.Sleep(1500);
                     ResetMovableObjectsToStartPosition();
                     if (pacman.Lives == 0)
@@ -261,11 +243,11 @@
                     {
                         if (this.pacman.AttackMode == true)
                         {
-                            opponent.RunAwayFromPacman(this.pacman);
+                            opponent.RunAwayFromPacman(this.pacman, this.map.GiveMeAllWalls());
                         }
                         else
                         {
-                            opponent.FollowCharacter(this.pacman);
+                            opponent.FollowPacman(this.pacman, this.map.GiveMeAllPaths(), this.map.GiveMeAllWalls());
                         }
                     }
                 }
@@ -274,30 +256,10 @@
 
         private void RemoveAllDeadObjects()
         {
-            PutDeadOpponentsToList();
-
             this.allObjects.RemoveAll(x => x.IsAlive == false);
             this.allMovableObjects.RemoveAll(x => x.IsAlive == false);
             this.map.GiveMeMap().RemoveAll(x => x.IsAlive == false);
             this.map.GiveMeAllScores().RemoveAll(x => x.IsAlive == false);
-        }
-
-        private void PutDeadOpponentsToList()
-        {
-            foreach (var movableObject in this.allMovableObjects)
-            {
-                if (movableObject is Opponent)
-                {
-                    Opponent opponent = movableObject as Opponent;
-                    if (!opponent.IsAlive)
-                    {
-                        Opponent newOpponent = opponent.Clone() as Opponent;
-                        newOpponent.Position = new MatrixCoords(Constant.OpponentRowStartPosition, Constant.OpponentColStartPosition);
-
-                        this.waitingDeadOpponents.Add(newOpponent);
-                    }
-                }
-            }
         }
 
         private void CheckForCollisionWithScores(Character pacman, List<GameObject> allScores)
