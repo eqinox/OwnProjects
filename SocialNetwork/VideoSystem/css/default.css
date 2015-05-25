@@ -1,0 +1,97 @@
+﻿body {
+}
+#registerUser .container{
+    width: 300px;
+}
+
+#loginUser .container{
+    width: 300px;
+}
+
+#navUser{
+    list-style-type:none;
+}
+
+#navUser li{
+    display: inline-block;
+    margin-right: 20px;
+    height: 50px;
+}
+
+#navUser li *{
+    cursor: pointer;
+}
+#username{
+    font-weight: bold;
+    text-decoration: underline;
+}
+#messageCount{
+    position: relative;
+    right: 20px;
+    top: 9px;
+    color: white;
+    font-weight: bold;
+    border: 1px solid black;
+    border-radius: 90px;
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    background-color: red;
+    font-size: 12px;
+}
+
+#messageCount span{
+    position: relative;
+    top: -2px;
+    right: -2px;
+}
+
+.dropdown-menu li{
+    width: 300px;
+    
+}
+
+.friendPart{
+    border-bottom-width: 70px;
+    border-bottom: 3px solid black;
+    
+}
+
+.btn-accept-reject{
+    width: 70px;
+}
+
+#searchbar{
+    margin-top: 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#friends{
+    border:1px solid black;
+}
+
+#friends ul{
+    list-style-type:none;
+    margin:0px;
+    padding:0px;
+    
+}
+
+#friends li{
+    display:inline-block;
+    width:70px;
+    height: 70px;
+    border: 1px solid black;
+}
+
+
+.friendsName{
+    position:relative;
+    top:-25px;
+    right:-10px;
+    margin:0px;
+    padding:0px;
+    color:white;
+}
+

@@ -1,0 +1,46 @@
+﻿
+
+
+
+<div class="row" ng-if="!isLogged">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <h1>Home</h1>
+        <ul>
+            <li>
+                <a href="#/login">Login</a>
+            </li>
+            <li>
+                <a href="#/register">Register</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+
+<div ng-if="isLogged">
+    <div ng-include src="'views/partials/header.html'">
+
+    </div>
+
+
+    <div class="row" ng-if="!showFullFriendsPage">
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-4" id="friends">
+            <div>
+                Friends - <a href="#/friends">{{friends.length}}</a> Total
+            </div>
+            <ul>
+                <li ng-repeat="friend in friends">
+                    <img src="http://www.profightdb.com/img/wrestlers/thumbs-600/4d54a6c767johncena.jpg" width="70" height="70" />
+                    <span class="friendsName">{{friend.name}}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
