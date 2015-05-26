@@ -2,7 +2,18 @@
 /// <reference path="../app.js" />
 
 app.factory("authService", function ($http, baseServiceUrl, userSession) {
-    
+    function register(userData, success, error) {
+        var request = {
+            method: "POST",
+            url: baseServiceUrl + "/api/users/Register",
+            data: userData
+        };
+
+        $http(request).success(function (data) {
+            sessionStorage[userSession] = JSON.stringify(data);
+            success(data);
+        }).error(error);
+    }
 
     function login(userData, success, error) {
         $http({
@@ -17,11 +28,8 @@ app.factory("authService", function ($http, baseServiceUrl, userSession) {
         .error(error);
     }
 
-    
-
-    
-
     return {
+        register: register,
         login: login
     }
 });
