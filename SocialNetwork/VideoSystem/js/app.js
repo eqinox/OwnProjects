@@ -1,4 +1,4 @@
-var app = angular.module("SocialNetwork", ['ngRoute', 'ngResource']);
+﻿var app = angular.module("SocialNetwork", ['ngRoute', 'ngResource']);
 
 
 app.constant("baseServiceUrl", "http://softuni-social-network.azurewebsites.net");
@@ -21,6 +21,12 @@ app.config(function ($routeProvider) {
         templateUrl: 'views/register.html',
         controller: 'RegisterUserController'
     });
+
+    $routeProvider.when('/friends', {
+        templateUrl: 'views/friends.html',
+        controller: 'HomeController'
+    });
+
     $routeProvider.otherwise({redirectTo: '/'})
 });
 
