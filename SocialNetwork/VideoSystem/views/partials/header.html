@@ -1,0 +1,49 @@
+﻿<div class="row">
+    <div class="col-md-12">
+        <ul id="navUser">
+            <li>
+                <img src="http://www.profightdb.com/img/wrestlers/thumbs-600/4d54a6c767johncena.jpg" width="50" height="50">
+                <span id="username">{{user.username}}</span>
+            </li>
+            <li class="dropdown">
+                <span class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" ng-click="getFriendRequests()">
+                    <img src="../images/friendsIcon.png" width="30" height="30" />
+                    <span id="messageCount" ng-if="showMessage">
+                        <span>{{friendRequests.length}}</span>
+                    </span>
+                </span>
+
+                <ul class="dropdown-menu" role="menu">
+                    <li>
+                        <ul>
+                            <li ng-repeat="request in friendRequests" ng-if="showMessage">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <img src="http://www.profightdb.com/img/wrestlers/thumbs-600/4d54a6c767johncena.jpg" width="50" height="50">
+                                    </div>
+                                    <div class="col-lg-7" style="text-align:center;">
+                                        <span style="font-weight:bold;">{{request.user.name}}</span>
+                                        <br />
+                                        <button type="button" class="btn btn-sm btn-info btn-accept-reject" ng-click="accept(request.id)">Accept</button>
+                                        <button type="button" class="btn btn-sm btn-info pull-right btn-accept-reject" ng-click="decline(request.id)">Decline</button>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                            </li>
+                            <li ng-if="!showMessage">
+                                There are no friend requests
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <img src="../images/Logout.png" width="30" height="30" ng-click="logout()" />
+            </li>
+            <li class="pull-right">
+                <input type="search" id="searchbar" ng-change="search()" ng-model="input" />
+            </li>
+        </ul>
+    </div>
+</div>
