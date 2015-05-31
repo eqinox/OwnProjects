@@ -55,6 +55,7 @@
     <AppxManifest Include="package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="images\black.gif" />
     <Content Include="images\friendsIcon.png" />
     <Content Include="images\Logout.png" />
     <Content Include="index.html" />
@@ -69,6 +70,7 @@
     <Content Include="js\Controllers\LoginUserController.js" />
     <Content Include="js\Controllers\RegisterUserController.js" />
     <Content Include="js\Services\authService.js" />
+    <Content Include="js\Services\profileService.js" />
     <Content Include="libs\css\bootstrap-theme.css" />
     <Content Include="libs\css\bootstrap-theme.css.map" />
     <Content Include="libs\css\bootstrap-theme.min.css" />
@@ -88,6 +90,7 @@
     <Content Include="libs\js\dropdown.js" />
     <Content Include="libs\js\jquery-1.11.3.js" />
     <Content Include="libs\js\npm.js" />
+    <Content Include="views\friend-page.html" />
     <Content Include="views\friends.html" />
     <Content Include="views\home.html" />
     <Content Include="views\login.html" />

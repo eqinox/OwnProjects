@@ -4,16 +4,16 @@
 
 "use strict";
 
-app.controller('LoginUserController', function ($scope, authService, $location) {
+app.controller('LoginUserController', function ($scope, authService, $location, notifyService) {
     $scope.login = function (userData) {
         authService.login(userData,
             function success() {
-                console.log("Successfully Login");
+                notifyService.showInfo("Login successfull");
                 $location.path("/");
             },
             function error(err) {
-                console.log(err);
-            })
+                notifyService.showError("Cannot login", err);
+            });
     }
 
 });

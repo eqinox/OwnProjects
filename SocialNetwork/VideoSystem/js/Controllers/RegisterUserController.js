@@ -3,15 +3,16 @@
 /// <reference path="requester.js" />
 /// <reference path="app.js" />
 
-app.controller("RegisterUserController", function ($scope, authService, $location) {
+app.controller("RegisterUserController", function ($scope, authService, $location, notifyService) {
 
     $scope.register = function () {
         authService.register($scope.userData,
             function success() {
+                notifyService.showInfo("Register successfull");
                 $location.path('/login');
             },
             function error(err) {
-                console.log(err);
+                notifyService.showError("Cannot Register", err);
             });
     }
-})
+});

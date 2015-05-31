@@ -5,29 +5,27 @@
 "use strict";
 
 
-app.controller("HomeController", function ($scope, authService, $location) {
+app.controller("HomeController", function ($scope, authService, $location, profileService, notifyService) {
     
-    
+    $scope.showNormalHomeView = true;
 
-
-    authService.getDataAboutMe(function success(data) {
+    profileService.getDataAboutMe(function success(data) {
         $scope.user = data;
         $scope.isLogged = true;
-        //console.log($scope.user);
     },
     function error(err) {
         $scope.isLogged = false;
-        console.log(err);
     });
 
 
     $scope.logout = function () {
+        notifyService.showInfo("Successfully Logout");
         authService.logout();
         $scope.isLogged = false;
     }
 
     $scope.getFriendRequests = 
-        authService.getFriendRequests(
+        profileService.getFriendRequests(
             function success(data) {
             $scope.friendRequests = data;
             console.log($scope.friendRequests);
@@ -41,20 +39,34 @@ app.controller("HomeController", function ($scope, authService, $location) {
 
     
 
-    $scope.search = function () {
-        authService.searchUserByName($scope.input,
+    $scope.search = function (value) {
+        profileService.searchUserByName(value,
+            function success(data) {
+                console.log(data);
+                $scope.searchFriends = data;
+                $scope.showSearchFriends = true;
+            },
+            function error(err) {
+                $scope.showSearchFriends = false;
+                console.log(err);
+            });
+    }
+
+    $scope.viewProfile = function (username) {
+        profileService.getUserPreviewData(username,
             function success(data) {
                 console.log(data);
             },
             function error(err) {
                 console.log(err);
             });
+        console.log(username);
     }
 
     $scope.accept = function (id) {
-        authService.approveFriendRequest(id,
+        profileService.approveFriendRequest(id,
             function success(success) {
-                console.log("successfuly accepted");
+                notifyService.showInfo("Successfully accepted");
                 getFriends();
                 authService.getFriendRequests(
                     function success(data) {
@@ -67,15 +79,14 @@ app.controller("HomeController", function ($scope, authService, $location) {
                     });
             },
             function error(err) {
-                console.log(err);
-                console.log("error");
+                notifyService.showError("Cannot Accept", err);
             });
     }
 
     $scope.decline = function (id) {
-        authService.removeFriendRequest(id,
+        profileService.removeFriendRequest(id,
             function success() {
-                console.log("successfully declined");
+                notifyService.showInfo("Successfully declined");
                 authService.getFriendRequests(
                     function success(data) {
                         $scope.friendRequests = data;
@@ -83,7 +94,7 @@ app.controller("HomeController", function ($scope, authService, $location) {
                         $scope.showMessage = $scope.friendRequests.length == 0 ? false : true;
                     },
                     function error(err) {
-                        console.log(err);
+                        notifyService.showError("Cannot decline", err);
                     });
             },
             function error(err) {
@@ -91,20 +102,24 @@ app.controller("HomeController", function ($scope, authService, $location) {
             });
     }
 
+    $scope.viewProfile = function (id) {
+        $location.path('/friends/' + id);
+    }
+
     getFriends();
-    
-
-
-
 
     function getFriends() {
-        authService.getFriends(function success(data) {
+        profileService.getFriends(function success(data) {
             $scope.friends = data;
             console.log(data);
         },
         function error(err) {
             console.log(err);
         });
+    }
+
+    $scope.showFullFriend = function () {
+        $scope.showNormalHomeView = false;
     }
 
 });

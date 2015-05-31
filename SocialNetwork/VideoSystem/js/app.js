@@ -23,8 +23,13 @@ app.config(function ($routeProvider) {
     });
 
     $routeProvider.when('/friends', {
-        templateUrl: 'views/friends.html',
-        controller: 'HomeController'
+        templateUrl: 'views/partials/full-friend-page.html',
+        controller: 'FriendPageController'
+    });
+
+    $routeProvider.when('/friends/:id', {
+        templateUrl: 'views/friend-page.html',
+        controller: 'FriendPageController'
     });
 
     $routeProvider.otherwise({redirectTo: '/'})

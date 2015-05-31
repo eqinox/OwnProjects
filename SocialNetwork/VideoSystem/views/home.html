@@ -23,8 +23,14 @@
 
     </div>
 
+    
 
-    <div class="row" ng-if="!showFullFriendsPage">
+    <div class="row" ng-if="showNormalHomeView">
+
+        <div id="navMessage">
+            <h1>News Feed</h1>
+        </div>
+
         <div class="col-md-8">
 
         </div>
@@ -33,12 +39,20 @@
                 Friends - <a href="#/friends">{{friends.length}}</a> Total
             </div>
             <ul>
-                <li ng-repeat="friend in friends">
-                    <img src="http://www.profightdb.com/img/wrestlers/thumbs-600/4d54a6c767johncena.jpg" width="70" height="70" />
+                <li ng-repeat="friend in friends" ng-click="viewProfile(friend.username)">
+                    <img ng-src="{{friend.profileImageData}}" src="../images/black.gif" width="100" height="100" />
                     <span class="friendsName">{{friend.name}}</span>
                 </li>
             </ul>
         </div>
+    </div>
+
+    <div class="row" ng-if="showFullFriendsPage">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+
+        </div>
+        <div class="col-md-2"></div>
     </div>
 
 
